@@ -15,10 +15,12 @@ class MoviesController < ApplicationController
 
   def edit
     @movie = Movie.find(params[:id])
+    @actors = @movie.actors
   end
 
   def show
     @movie = Movie.find(params[:id])
+    @actors = Actor.all - @movie.actors
   end
 
   def update
@@ -33,4 +35,20 @@ class MoviesController < ApplicationController
     movie.destroy
     redirect_to movies_path
   end
+
+  def add_actor
+    movie = Movie.find(params[:id])
+    actor = Actor.find(params[:id])
+    unless movie.actors.include? actor
+      movie.actors << actor
+    end
+    redirect_to movie_path(movie)
+  end
+
+  def remove_actor
+    movie = Movie.find(params[:id])
+    movie.actors.destroy(actor)
+    redirect_to actors_path(@actor)
+  end
+
 end

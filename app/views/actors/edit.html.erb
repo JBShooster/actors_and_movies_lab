@@ -1,0 +1,8 @@
+<h1>Edit</h1>
+
+<%= form_for @actor do |f| %>
+  <%= f.text_field :name %>
+  <p><%= f.label :movie, "Movies: " %>
+  <%= f.collection_select :movies, Movie.all, :id, :title, prompt: true %></p>
+  <%= f.submit "Update" %>
+<% end %>
